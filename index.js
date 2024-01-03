@@ -16,7 +16,14 @@ app.post("/weather", async (req, res) => {
 
       return { [city]: `${data.main.temp}°C` };
     });
-  } catch (err) {}
+
+    const results = await Promise.all(weatherFetch);
+    const weather = Object.assign({}, ...results);
+
+    res.json({ weather });
+  } catch (err) {
+    res.status(500).json("Could not fetch weather");
+  }
 });
 
 app.listen(PORT, () => {
