@@ -17,7 +17,7 @@ app.post("/weather", async (req, res) => {
       return { [city]: `${data.main.temp}°C` };
     });
 
-    const results = await Promise.all(weatherFetch);
+    const results = await Promise.all(fetchWeather);
     const weather = Object.assign({}, ...results);
 
     res.json({ weather });
